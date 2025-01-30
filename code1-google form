@@ -1,0 +1,89 @@
+#include <bits/stdc++.h>
+using namespace std;
+struct Student {
+    string name;
+    double grade;
+};
+void add(vector<Student>& students) {
+    Student newStudent;
+    cout << "Enter student's name: ";
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    getline(cin, newStudent.name);
+    cout << "Enter student's grade: ";
+    cin >> newStudent.grade;
+    students.push_back(newStudent);
+    cout << "Student added successfully!\n";
+}
+void display(const vector<Student>& students) {
+    if (students.empty()) {
+        cout << "No students to display.\n";
+        return;
+    }
+    cout << "Student Records:\n";
+    for (const auto& student : students) {
+        cout << "Name: " << student.name << ", Grade: " << student.grade << "\n";
+    }
+}
+void Average(const vector<Student>& students) {
+    if (students.empty()) {
+        cout << "No students to calculate average grade.\n";
+        return;
+    }
+    double total = 0;
+    for (const auto& student : students) {
+        total += student.grade;
+    }
+    cout << "Average Grade: " << total / students.size() << "\n";
+}
+void HighestGrade(const vector<Student>& students) {
+    if (students.empty()) {
+        cout << "No students to find the highest grade.\n";
+        return;
+    }
+    const Student* topStudent = &students[0];
+    for (const auto& student : students) {
+        if (student.grade > topStudent->grade) {
+            topStudent = &student;
+        }
+    }
+    cout << "Highest Grade: " << topStudent->grade << " (Student: " << topStudent->name << ")\n";
+}
+
+int main() {
+    vector<Student> students;
+    int choice;
+
+    do {
+        cout << "\nStudent Record Management System\n";
+        cout << "1. Add Student\n";
+        cout << "2. Display All Students\n";
+        cout << "3. Calculate Average Grade\n";
+        cout << "4. Find Student with Highest Grade\n";
+        cout << "5. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                add(students);
+                break;
+            case 2:
+                display(students);
+                break;
+            case 3:
+                Average(students);
+                break;
+            case 4:
+                HighestGrade(students);
+                break;
+            case 5:
+                cout << "Exiting the program.\n";
+                break;
+            default:
+                cout << "Invalid choice. Please try again.\n";
+        }
+    } while (choice != 5);
+
+    return 0;
+}
+
